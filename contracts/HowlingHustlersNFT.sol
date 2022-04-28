@@ -3,7 +3,7 @@
 /// @title Howling Hustlers (HH) NFT Smart Contract
 /// @author Jm San Diego - aka weeeeezy ⚡️
 /// @notice This contract basically consists of HH's ERC721 functionalities
-/// @dev Please credit my name (author) if any of the code is used 🤟🏻 Also thanks Hashlips!
+/// @dev Thanks Hashlips!
 
 pragma solidity >=0.7.0 <0.9.0;
 
@@ -22,16 +22,16 @@ contract HowlingHustlersNFT is ERC721, Ownable {
     string public uriSuffix = ".json";
     string public hiddenMetadataUri;
 
-    uint256 public wlCost = 0.03 ether;
-    uint256 public pubCost = 0.05 ether;
-    uint16 public maxSupply = 6000;
-    uint8 public maxMintAmountPerTx = 2;
+    uint256 public wlCost = 0.03 ether; //uint256
+    uint256 public pubCost = 0.05 ether; //uint256
+    uint256 public maxSupply = 6000; //uint16
+    uint256 public maxMintAmountPerTx = 2; //uint8
 
     bool public isSaleActive = false;
     bool public isRevealed = false;
 
     constructor() ERC721("Howling Hustlers NFT", "HH") {
-        setHiddenMetadataUri("ipfs://__CID__/hidden.json");
+        setHiddenMetadataUri("ipfs://test/hidden.json");
     }
 
     modifier mintCompliance(uint256 _mintAmount) {
@@ -46,17 +46,17 @@ contract HowlingHustlersNFT is ERC721, Ownable {
         _;
     }
 
-    function totalSupply() public view returns (uint16) {
+    function totalSupply() public view returns (uint256) {
         return supply.current();
     }
 
-    function publicMint(uint8 _mintAmount)
+    function publicMint(uint256 _mintAmount)
         public
         payable
         mintCompliance(_mintAmount)
     {
         require(isSaleActive, "Minting is not live yet!");
-        require(msg.value >= mintCost * _mintAmount, "Insufficient funds!");
+        require(msg.value >= pubCost * _mintAmount, "Insufficient funds!");
 
         _mintLoop(msg.sender, _mintAmount);
     }
@@ -72,14 +72,16 @@ contract HowlingHustlersNFT is ERC721, Ownable {
     function walletOfOwner(address _owner)
         public
         view
-        returns (uint16[] memory)
+        returns (uint256[] memory)
     {
-        uint16 ownerTokenCount = balanceOf(_owner);
-        uint16[] memory ownedTokenIds = new uint16[](ownerTokenCount);
+        uint256 ownerTokenCount = balanceOf(_owner);
+        uint256[] memory ownedTokenIds = new uint256[](ownerTokenCount);
         uint256 currentTokenId = 1;
         uint256 ownedTokenIndex = 0;
 
-        while (ownedTokenIndex < ownerTokenCount && currentToken <= maxSupply) {
+        while (
+            ownedTokenIndex < ownerTokenCount && currentTokenId <= maxSupply
+        ) {
             address currentTokenOwner = ownerOf(currentTokenId);
 
             if (currentTokenOwner == _owner) {
@@ -87,7 +89,7 @@ contract HowlingHustlersNFT is ERC721, Ownable {
 
                 ownedTokenIndex++;
             }
-            curentTokenIndex++;
+            currentTokenId++;
         }
         return ownedTokenIds;
     }
@@ -113,11 +115,63 @@ contract HowlingHustlersNFT is ERC721, Ownable {
             bytes(currentBaseURI).length > 0
                 ? string(
                     abi.encodePacked(
-                        currrentBaseURI,
+                        currentBaseURI,
                         _tokenId.toString(),
                         uriSuffix
                     )
                 )
                 : "";
+    }
+
+    function setIsRevealed(bool _state) public onlyOwner {
+        isRevealed = _state;
+    }
+
+    function setPubCost(uint256 _pubCost) public onlyOwner {
+        pubCost = _pubCost;
+    }
+
+    function setMaxMintAmountPerTx(uint256 _maxMintAmountPerTx)
+        public
+        onlyOwner
+    {
+        maxMintAmountPerTx = _maxMintAmountPerTx;
+    }
+
+    function setHiddenMetadataUri(string memory _hiddenMetadaUri)
+        public
+        onlyOwner
+    {
+        hiddenMetadataUri = _hiddenMetadaUri;
+    }
+
+    function setUriPrefix(string memory _uriPrefix) public onlyOwner {
+        uriPrefix = _uriPrefix;
+    }
+
+    function setUriSuffix(string memory _uriSuffix) public onlyOwner {
+        uriSuffix = _uriSuffix;
+    }
+
+    function setIsSaleActive(bool _state) public onlyOwner {
+        isSaleActive = _state;
+    }
+
+    function withdraw() public onlyOwner {
+        (bool os, ) = payable(owner()).call{value: address(this).balance}("");
+        require(os);
+    }
+
+    // internal functions
+
+    function _mintLoop(address _receiver, uint256 _mintAmount) internal {
+        for (uint256 i = 0; i < _mintAmount; i++) {
+            supply.increment();
+            _safeMint(_receiver, supply.current());
+        }
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return uriPrefix;
     }
 }

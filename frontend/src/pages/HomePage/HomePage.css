@@ -1,0 +1,59 @@
+.homepage__landing {
+  padding: 7rem 0;
+}
+
+.landing__content {
+  max-width: 85%;
+  margin: 0 auto;
+}
+
+.landing__content h1 {
+  margin: 0 0 1rem 0;
+}
+
+.landing__content p:first-of-type {
+  margin: 0 0 3rem 0;
+  font-size: 1.2rem;
+}
+
+.homepage__overview {
+  background-color: var(--secondary-color);
+  color: var(--font-contrast);
+}
+
+.overview__content h2 {
+  margin-bottom: 3rem;
+}
+
+.overview__content p {
+  margin-bottom: 1rem;
+}
+.team__content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: center;
+  width: 80%;
+}
+
+.team__content h2 {
+  flex-basis: 100%;
+}
+
+.team__content img {
+  width: 15rem;
+  margin: 2rem;
+  border-radius: 50%;
+}
+
+.team__content h3 {
+  margin: 0.5rem;
+}
+
+.faq__content h2 {
+  margin: 0 0 2rem 0;
+}
+
+.faq__content dd {
+  margin: 1rem 0 2rem 0;
+}

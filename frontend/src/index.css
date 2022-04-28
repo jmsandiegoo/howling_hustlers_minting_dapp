@@ -43,8 +43,12 @@
 }
 
 :root {
-  --white: #ffffff;
+  --primary-color: #1f213e;
+  --secondary-color: #ffffff;
   --accent-color: #ffe99c;
+  --font: #ffffff;
+  --font-contrast: #000000;
+  --max-content-width: 100rem;
 }
 
 * {
@@ -55,9 +59,27 @@
 
 html {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  color: var(--white);
+  color: var(--font);
+  overflow-y: scroll;
 }
 
 h1 {
   font-size: 4rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+.layout {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.content {
+  width: 50%;
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 5rem 0;
+  text-align: center;
 }

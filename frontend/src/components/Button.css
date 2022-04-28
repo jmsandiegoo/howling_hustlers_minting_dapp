@@ -1,0 +1,36 @@
+.btn {
+  /* Display stuff (grid, flex, inline) */
+
+  /* Dimensions */
+  min-width: 18ch;
+
+  /* Margin Padding */
+  padding: 0.7rem;
+
+  /* Background */
+
+  /* Border */
+  border-radius: 1px;
+  border: none;
+
+  /* Typography */
+  text-transform: uppercase;
+
+  /* misc */
+  cursor: pointer;
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: var(--font);
+}
+
+.secondary-btn {
+  background-color: var(--secondary-color);
+  color: var(--font-contrast);
+}
+
+.accent-btn {
+  background-color: var(--accent-color);
+  color: var(--font-contrast);
+}

@@ -1,0 +1,9 @@
+.error-banner {
+  background-color: #e6534e;
+  padding: 1rem;
+}
+
+.error-banner h3,
+.error-banner p {
+  padding: 0.3rem 0;
+}

@@ -1,0 +1,32 @@
+.mintpage__layout {
+  /* min-height: 90vh; */
+}
+
+.mintpage__content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mintpage__card {
+  background-color: #282b54;
+  padding: 3rem;
+}
+
+.mintpage__card .card__currentMint {
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+
+.mintpage__card a {
+  color: var(--accent-color);
+}
+
+.mintpage__form .form__action {
+  display: flex;
+  align-items: center;
+}
+
+.mintpage img {
+  width: 15rem;
+  margin: 2rem;
+}
