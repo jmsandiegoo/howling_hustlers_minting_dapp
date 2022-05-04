@@ -2,9 +2,10 @@
   /* min-height: 90vh; */
 }
 
-.mintpage__content {
+.mintpage .content--large {
   display: flex;
-  justify-content: space-between;
+  /* flex-wrap: wrap; */
+  align-items: center;
 }
 
 .mintpage__card {
@@ -15,10 +16,18 @@
 .mintpage__card .card__currentMint {
   font-size: 1.4rem;
   font-weight: 200;
+  margin: 0.5rem 0;
 }
 
-.mintpage__card a {
+.mintpage__card .card__contractAddress {
   color: var(--accent-color);
+}
+
+.mintpage__form input {
+  margin: 2rem 0;
+  font-size: large;
+  text-align: center;
+  padding: 0.5rem;
 }
 
 .mintpage__form .form__action {

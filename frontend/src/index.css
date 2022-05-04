@@ -72,14 +72,22 @@ h2 {
 }
 
 .layout {
+  /* background-color: pink; */
   max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
 .content {
-  width: 50%;
-  max-width: 100rem;
+  /* background-color: #ffe99c; */
+  max-width: 85%;
   margin: 0 auto;
   padding: 5rem 0;
+}
+
+.content--small {
+  max-width: 50%;
+}
+
+.content--textCenter {
   text-align: center;
 }

@@ -1,17 +1,12 @@
 .homepage__landing {
-  padding: 7rem 0;
+  /* padding: 7rem 0; */
 }
 
-.landing__content {
-  max-width: 85%;
-  margin: 0 auto;
-}
-
-.landing__content h1 {
+.homepage__mainTitle {
   margin: 0 0 1rem 0;
 }
 
-.landing__content p:first-of-type {
+.homepage__subText {
   margin: 0 0 3rem 0;
   font-size: 1.2rem;
 }
@@ -21,14 +16,14 @@
   color: var(--font-contrast);
 }
 
-.overview__content h2 {
+.homepage__subTitle {
   margin-bottom: 3rem;
 }
 
-.overview__content p {
+.homepage__overview .homepage__text {
   margin-bottom: 1rem;
 }
-.team__content {
+.homepage__team .content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -36,24 +31,20 @@
   width: 80%;
 }
 
-.team__content h2 {
+.homepage__team .homepage__subTitle {
   flex-basis: 100%;
 }
 
-.team__content img {
+.member img {
   width: 15rem;
   margin: 2rem;
   border-radius: 50%;
 }
 
-.team__content h3 {
+.member__name {
   margin: 0.5rem;
 }
 
-.faq__content h2 {
-  margin: 0 0 2rem 0;
-}
-
-.faq__content dd {
+.homepage__faq dd {
   margin: 1rem 0 2rem 0;
 }

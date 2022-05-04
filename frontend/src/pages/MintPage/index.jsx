@@ -8,19 +8,19 @@ import { Button } from "../../components/Button";
 const MintPage = () => {
   return (
     <main className="mintpage">
-      <div className="mintpage__layout layout">
-        <div className="mintpage__content content">
+      <div className="layout">
+        <div className="content--large content ">
           <section className="mintpage__card">
-            <h2>Mint NFT</h2>
-            <p className="card__currentMint">0/1000 Minted</p>
-            <a>
+            <h2 className="mintpage__title">Mint NFT</h2>
+            <p className="mintpage__currentMint">0/1000 Minted</p>
+            <a className="mintpage__contractAddress">
               {shortenAddress(CONFIG.CONTRACTS.NFT_CONTRACT.CONTRACT_ADDRESS)}
             </a>
-            <form className="mintpage__form form">
+            <form className="mintpage__form">
               <input type="number" />
-              <div className="form__action">
+              <div className="mintpage__formAction">
                 <strong>100 MATIC</strong>
-                <Button>MINT</Button>
+                <Button type="accent">MINT</Button>
               </div>
             </form>
           </section>

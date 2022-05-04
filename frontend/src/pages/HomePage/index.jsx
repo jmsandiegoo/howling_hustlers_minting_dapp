@@ -9,15 +9,17 @@ const HomePage = () => {
 
   return (
     <main className="homepage">
-      <section className="homepage__landing landing">
-        <div className="landing__layout layout">
-          <div className="landing__content">
-            <h1>
+      <section className="homepage__landing">
+        <div className="layout">
+          <div className="content content--large">
+            <h1 className="homepage__mainTitle">
               Welcome to <br /> Howling Hustlers
             </h1>
-            <p>A hustler inspired NFT collection. Welcome to the jungle!</p>
+            <p className="homepage__subText">
+              A hustler inspired NFT collection. Welcome to the jungle!
+            </p>
 
-            <p>Pre-sale is now ongoing</p>
+            <p className="homepage__salePhase">Pre-sale is now ongoing</p>
             <Button
               type="accent"
               handleClick={() => {
@@ -29,16 +31,16 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="homepage__overview overview">
-        <div className="overview__layout layout">
-          <div className="overview__content content">
-            <h2>Project Overview</h2>
-            <p>
+      <section className="homepage__overview">
+        <div className="layout">
+          <div className="content content--small content--textCenter">
+            <h2 className="homepage__subTitle">Project Overview</h2>
+            <p className="homepage__text">
               Howling Hustlers is a hustler inspired NFT collection that
               consists of different traits. Our goal is to simply release cool
               looking art to our holders for them to collect and showcase.
             </p>
-            <p>
+            <p className="homepage__text">
               The collection consists of 2000 NFTs. Each NFT art is a wolf that
               is unique and programmatically generated with varying traits and
               rarity (expressions, headwear, clothing and more). These wolves
@@ -49,38 +51,39 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="homepage__team team">
-        <div className="team__layout layout">
-          <div className="team__content content">
-            <h2>Team</h2>
-            <figure>
+      <section className="homepage__team">
+        <div className="layout">
+          <div className="content content--textCenter">
+            <h2 className="homepage__subTitle">Team</h2>
+
+            <figure className="member">
               <img src={nautxzPng} />
               <figcaption>
-                <h3>nautxz</h3>
-                <p>Developer</p>
+                <h3 className="member__name">nautxz</h3>
+                <p className="member__role">Developer</p>
               </figcaption>
             </figure>
-            <figure>
+            <figure className="member">
               <img src={nautxzPng} />
               <figcaption>
-                <h3>alyssxv</h3>
-                <p>Artist</p>
+                <h3 className="member__name">alyssxv</h3>
+                <p className="member__role">Artist</p>
               </figcaption>
             </figure>
-            <figure>
+            <figure className="member">
               <img src={nautxzPng} />
               <figcaption>
-                <h3>alyssxv</h3>
-                <p>Artist</p>
+                <h3 className="member__name">alyssxv</h3>
+                <p className="member__role">Artist</p>
               </figcaption>
             </figure>
           </div>
         </div>
       </section>
-      <section className="homepage__faq faq">
+      <section className="homepage__faq">
         <div className="layout">
-          <dl className="faq__content content">
-            <h2>FAQ</h2>
+          <dl className="content content--small content--textCenter">
+            <h2 className="homepage__subTitle">FAQ</h2>
             <dt>
               <h3>How can I get into pre-sale?</h3>
             </dt>
