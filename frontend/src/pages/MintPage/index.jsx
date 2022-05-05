@@ -9,7 +9,7 @@ const MintPage = () => {
   return (
     <main className="mintpage">
       <div className="layout">
-        <div className="content--large content ">
+        <div className="content content--textCenter">
           <section className="mintpage__card">
             <h2 className="mintpage__title">Mint NFT</h2>
             <p className="mintpage__currentMint">0/1000 Minted</p>
@@ -19,11 +19,12 @@ const MintPage = () => {
             <form className="mintpage__form">
               <input type="number" />
               <div className="mintpage__formAction">
-                <strong>100 MATIC</strong>
+                <span className="mintpage__price">10 MATIC</span>
                 <Button type="accent">MINT</Button>
               </div>
             </form>
           </section>
+          {/* <div className="mintpage__filler"></div> */}
           <img src={nautxzPng} />
         </div>
       </div>

@@ -2,29 +2,32 @@
   /* min-height: 90vh; */
 }
 
-.mintpage .content--large {
+.mintpage .content {
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+  gap: 4rem;
 }
 
 .mintpage__card {
   background-color: #282b54;
-  padding: 3rem;
+  border-radius: 1%;
+  padding: 2.5rem;
 }
 
-.mintpage__card .card__currentMint {
+.mintpage__currentMint {
   font-size: 1.4rem;
   font-weight: 200;
   margin: 0.5rem 0;
 }
 
-.mintpage__card .card__contractAddress {
+.mintpage__contractAddress {
   color: var(--accent-color);
 }
 
 .mintpage__form input {
-  margin: 2rem 0;
+  margin: 3rem 0;
   font-size: large;
   text-align: center;
   padding: 0.5rem;
@@ -32,7 +35,16 @@
 
 .mintpage__form .form__action {
   display: flex;
+  justify-content: center;
   align-items: center;
+}
+
+.mintpage__price {
+  display: inline-block;
+  font-size: 1.2rem;
+  width: 15ch;
+  margin-right: 1rem;
+  vertical-align: middle;
 }
 
 .mintpage img {
