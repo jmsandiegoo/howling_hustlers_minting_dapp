@@ -9,7 +9,7 @@ export const CONFIG = {
   NETWORK: {
     LOCAL: {
       NAME: "Localhost",
-      SYMBOL: "ETH",
+      SYMBOL: "MATIC",
       ID: 31337,
     },
     TEST: {
@@ -28,9 +28,9 @@ export const CONFIG = {
   },
   NFT_NAME: "Howling Hustlers NFT",
   SYMBOL: "HH",
-  MAX_SUPPLY: 6000,
-  ETHER_COST: "0.05",
-  GAS_LIMIT: 285000,
+  MAX_SUPPLY: 1000,
+  COST: "50",
+  // GAS_LIMIT: 285000,
   MARKETPLACE: "Opeansea",
   // MARKETPLACE_LINK: "https://testnets.opensea.io/collection/sheesh-eye-nft",
 };

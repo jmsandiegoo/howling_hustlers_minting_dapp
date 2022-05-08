@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 
 const MainPageLayout = () => {
   const metamask = useSelector((state) => state.metamask);
+  const app = useSelector((state) => state.app);
 
   return (
     <div className="app-wrapper">
-      {metamask.error && <ErrorBanner error={metamask.error} />}
+      {app.error && <ErrorBanner error={app.error} />}
       <Navbar />
       <Outlet />
     </div>

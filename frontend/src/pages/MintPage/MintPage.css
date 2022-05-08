@@ -33,7 +33,19 @@
   padding: 0.5rem;
 }
 
-.mintpage__form .form__action {
+.mintpage__form,
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.mintpage__form .btn {
+  min-width: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.mintpage__form .mintpage__formAction {
   display: flex;
   justify-content: center;
   align-items: center;

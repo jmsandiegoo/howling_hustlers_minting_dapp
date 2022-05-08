@@ -2,7 +2,6 @@ const initialState = {
   loading: false,
   account: null,
   provider: null,
-  error: null,
 };
 
 const metamaskReducer = (state = initialState, action) => {
@@ -22,10 +21,9 @@ const metamaskReducer = (state = initialState, action) => {
     case "METAMASK/CONNECTION_FAILED":
       return {
         ...state,
-        account: action.payload.account || state.account,
-        provider: action.payload.provider || state.provider,
+        account: action.payload?.account || state.account,
+        provider: action.payload?.provider || state.provider,
         loading: false,
-        error: { ...action.payload.error },
       };
     case "METAMASK/UPDATE_ACCOUNT":
       return {
@@ -34,7 +32,14 @@ const metamaskReducer = (state = initialState, action) => {
       };
     case "METAMASK/DISCONNECT":
       return {
-        ...initialState,
+        ...state,
+        account: null,
+        loading: false,
+      };
+    case "METAMASK/PROVIDER_DETECTED":
+      return {
+        ...state,
+        provider: action.payload.provider,
       };
     default:
       return state;

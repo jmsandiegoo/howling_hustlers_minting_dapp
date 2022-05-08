@@ -18,14 +18,14 @@ contract HowlingHustlersNFT is ERC721, Ownable {
 
     Counters.Counter private supply;
 
-    string public uriPrefix = "";
+    string public uriPrefix = "ipfs://test/";
     string public uriSuffix = ".json";
     string public hiddenMetadataUri;
 
-    uint256 public wlCost = 0.03 ether; //uint256
-    uint256 public pubCost = 0.05 ether; //uint256
-    uint256 public maxSupply = 6000; //uint16
-    uint256 public maxMintAmountPerTx = 2; //uint8
+    uint256 public wlCost = 30 ether; //uint256
+    uint256 public pubCost = 50 ether; //uint256
+    uint256 public maxSupply = 1000; //uint16
+    uint256 public maxMintAmountPerTx = 5; //uint8
 
     bool public isSaleActive = false;
     bool public isRevealed = false;
@@ -163,7 +163,6 @@ contract HowlingHustlersNFT is ERC721, Ownable {
     }
 
     // internal functions
-
     function _mintLoop(address _receiver, uint256 _mintAmount) internal {
         for (uint256 i = 0; i < _mintAmount; i++) {
             supply.increment();

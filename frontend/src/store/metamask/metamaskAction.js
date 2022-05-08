@@ -1,5 +1,9 @@
 import { CONFIG } from "../../config";
 import { ethers } from "ethers";
+import {
+  appInitializing,
+  appInitialized,
+} from "../application/applicationAction";
 
 // Actions
 const connectRequest = () => {
@@ -12,13 +16,15 @@ const connectSuccess = (payload) => {
   return {
     type: "METAMASK/CONNECTION_SUCCESS",
     payload: payload,
+    error: null,
   };
 };
 
-const connectFailed = (payload) => {
+const connectFailed = ({ payload = null, error }) => {
   return {
     type: "METAMASK/CONNECTION_FAILED",
     payload: payload,
+    error: error,
   };
 };
 
@@ -35,7 +41,15 @@ const disconnectRequest = () => {
   };
 };
 
-// Thunks
+const providerDetected = (payload) => {
+  return {
+    type: "METAMASK/PROVIDER_DETECTED",
+    payload: payload,
+  };
+};
+
+// initialize with metamask provider
+
 const metamaskConnect = (isUserInvoked = false) => {
   return async (dispatch, getState) => {
     dispatch(connectRequest());
@@ -43,6 +57,7 @@ const metamaskConnect = (isUserInvoked = false) => {
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (metamaskIsInstalled) {
       const provider = new ethers.providers.Web3Provider(ethereum);
+      dispatch(providerDetected({ provider: provider }));
       try {
         let accounts = await provider.listAccounts();
 
@@ -64,8 +79,10 @@ const metamaskConnect = (isUserInvoked = false) => {
           } else {
             dispatch(
               connectFailed({
-                account: accounts[0],
-                provider: provider,
+                payload: {
+                  account: accounts[0],
+                  provider: provider,
+                },
                 error: {
                   errorType: "Wrong Network",
                   errorMessage: `Please change network to ${CONFIG.NETWORK.LOCAL.NAME}`,

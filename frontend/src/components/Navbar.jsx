@@ -57,7 +57,7 @@ const Navbar = () => {
       </a>
 
       <div>
-        <ul class="main-navbar__links">
+        <ul className="main-navbar__links">
           {[
             { label: "Overview", pathName: "/home" },
             { label: "Mint", pathName: "/mint" },
@@ -70,14 +70,16 @@ const Navbar = () => {
                 onClick={() => {
                   navigate(e.pathName);
                 }}
-                className={location.pathname === e.pathName && "active"}
+                className={
+                  location.pathname === e.pathName ? "active" : undefined
+                }
               >
                 {e.label}
               </li>
             );
           })}
         </ul>
-        <ul class="main-navbar__socials">
+        <ul className="main-navbar__socials">
           <li>
             <img src={discordLogoSvg} />
           </li>

@@ -2,9 +2,9 @@ const { expect } = require("chai");
 
 describe("HowlingHustlersNFT Contract", function () {
   let howlingHustlersCF, howlingHustlersC, owner, addrs;
-  const pubCost = ethers.utils.parseUnits("0.05", "ether");
-  const maxSupply = 6000;
-  const maxMintAmountPerTx = 2;
+  const pubCost = ethers.utils.parseUnits("50", "ether");
+  const maxSupply = 1000;
+  const maxMintAmountPerTx = 5;
 
   beforeEach(async function () {
     howlingHustlersCF = await ethers.getContractFactory("HowlingHustlersNFT");
