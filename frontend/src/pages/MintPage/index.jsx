@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./MintPage.css";
 import nautxzPng from "../../assets/images/nft/nautxz.png";
 import { useSelector, useDispatch } from "react-redux";
-import { appAddError } from "../../store/application/applicationAction";
+import {
+  appAddError,
+  appRemoveError,
+} from "../../store/application/applicationAction";
 import { CONFIG } from "../../config";
 import contractAbi from "../../contracts/HowlingHustlersNFT.json";
 import { shortenAddress } from "../../utils/addressShortener";
@@ -23,6 +26,14 @@ const MintPage = () => {
   const metamask = useSelector((state) => state.metamask);
   const app = useSelector((state) => state.app);
   const dispatch = useDispatch();
+  const errRef = useRef();
+  errRef.current = () => {
+    if (app.error?.errorType === "Mint Failed") dispatch(appRemoveError());
+  };
+
+  useEffect(() => {
+    return () => errRef.current();
+  }, []);
 
   useEffect(() => {
     if (metamask.provider) {
@@ -61,22 +72,25 @@ const MintPage = () => {
   const mint = async () => {
     if (
       metamask.account &&
-      (!app.error || app.error.errorType === "Request Failed")
+      (!app.error || app.error.errorType === "Mint Failed")
     ) {
       try {
         const response = await smartContract.publicMint(
           ethers.BigNumber.from(mintAmount),
           {
-            value: ethers.utils.parseEther(String(0.05 * mintAmount)),
+            value: ethers.utils.parseEther(
+              String(contractData.pubCost * mintAmount)
+            ),
           }
         );
+        console.log(response);
       } catch (e) {
         console.error(e);
         dispatch(
           appAddError({
-            errorType: "Request Failed",
+            errorType: "Mint Failed",
             errorMessage:
-              "Something went wrong with the request! Please try again.",
+              "Something went wrong while minting! Please try again.",
           })
         );
       }

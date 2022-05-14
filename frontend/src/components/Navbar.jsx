@@ -91,7 +91,9 @@ const Navbar = () => {
           </li>
         </ul>
         {metamask.account ? (
-          <Button type="accent">{shortenAddress(metamask.account)}</Button>
+          <Button handleClick={() => null} type="accent">
+            {shortenAddress(metamask.account)}
+          </Button>
         ) : (
           <Button
             type="accent"
