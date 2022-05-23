@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./MintPage.css";
 import nautxzPng from "../../assets/images/nft/nautxz.png";
+import { MintModalComponent } from "./mintModal";
 import { useSelector, useDispatch } from "react-redux";
 import {
   appAddError,
@@ -15,6 +16,7 @@ import { metamaskConnect } from "../../store/metamask/metamaskAction";
 
 const MintPage = () => {
   const [isMinting, setIsMinting] = useState(false);
+  const [isMintSuccess, setIsMintSuccess] = useState(false);
   const [mintAmount, setMintAmount] = useState(1);
   const [smartContract, setSmartContract] = useState(null);
   const [contractData, setContractData] = useState({
@@ -51,6 +53,7 @@ const MintPage = () => {
           metamask.provider.getSigner()
         );
       }
+
       const initializeContractData = async () => {
         try {
           const data = {
@@ -66,6 +69,16 @@ const MintPage = () => {
       };
       initializeContractData();
       setSmartContract(smartContract);
+
+      // Set Smart Contract Listener
+      smartContract.on("Transfer", async (to, from, tokenId) => {
+        console.log(to, from, tokenId);
+        const response = await smartContract.tokenURI(tokenId);
+      });
+
+      return () => {
+        smartContract.removeAllListeners("Transfer");
+      };
     }
   }, [metamask.account]);
 
@@ -75,6 +88,8 @@ const MintPage = () => {
       (!app.error || app.error.errorType === "Mint Failed")
     ) {
       try {
+        dispatch(appRemoveError());
+        setIsMinting(true);
         const response = await smartContract.publicMint(
           ethers.BigNumber.from(mintAmount),
           {
@@ -84,6 +99,7 @@ const MintPage = () => {
           }
         );
         console.log(response);
+        setIsMintSuccess(true);
       } catch (e) {
         console.error(e);
         dispatch(
@@ -93,8 +109,14 @@ const MintPage = () => {
               "Something went wrong while minting! Please try again.",
           })
         );
+      } finally {
+        setIsMinting(false);
       }
     }
+  };
+
+  const handleModalClose = () => {
+    setIsMintSuccess(false);
   };
 
   const addMintAmount = () => {
@@ -107,6 +129,14 @@ const MintPage = () => {
 
   return (
     <main className="mintpage">
+      {(isMinting || isMintSuccess) && (
+        <MintModalComponent
+          isMinting={isMinting}
+          isMinted={isMintSuccess}
+          handleClose={handleModalClose}
+        />
+      )}
+
       <div className="layout">
         <div className="content content--textCenter">
           <section className="mintpage__card">
@@ -129,9 +159,19 @@ const MintPage = () => {
                 <span className="mintpage__price">
                   {contractData.pubCost * mintAmount} MATIC
                 </span>
-                <Button handleClick={mint} type="accent">
-                  MINT
-                </Button>
+                {metamask.account ? (
+                  <Button handleClick={mint} type="accent" disabled>
+                    MINT
+                  </Button>
+                ) : (
+                  <Button
+                    handleClick={() => dispatch(metamaskConnect(true))}
+                    type="accent"
+                    disabled
+                  >
+                    CONNECT
+                  </Button>
+                )}
               </div>
             </form>
           </section>

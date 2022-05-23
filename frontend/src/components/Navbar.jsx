@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./Navbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";

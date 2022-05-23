@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./MainPage.css";
 import { Outlet } from "react-router-dom";
 import { ErrorBanner } from "../components/ErrorBanner";

@@ -1,5 +1,10 @@
-.mintpage__layout {
-  /* min-height: 90vh; */
+/* .mintpage__layout {
+  min-height: calc(100vh - 105px);
+} */
+
+.mintpage {
+  position: relative;
+  min-height: calc(100vh - 105px);
 }
 
 .mintpage .content {
@@ -62,4 +67,62 @@ input[type="number"]::-webkit-outer-spin-button {
 .mintpage img {
   width: 15rem;
   margin: 2rem;
+}
+
+.mintpage__modal {
+  max-width: 300px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mintpage__modal .modal__header {
+  text-align: end;
+}
+
+.mintpage__modal .modal__header svg {
+  width: 1rem;
+  height: auto;
+  fill: var(--secondary-color);
+  cursor: pointer;
+}
+
+.mintpage__modal .modal__content {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mintpage__modal .modal__content .modal__loading {
+  width: 5rem;
+  animation: full-moon-rotating 10s infinite linear;
+  align-self: center;
+}
+
+@keyframes full-moon-rotating {
+  from {
+    transform: rotate(0deg);
+    /* filter: drop-shadow(0px 4px 40px rgba(255, 255, 255, 0.9)); */
+  }
+
+  50% {
+    transform: rotate(180deg);
+    /* filter: drop-shadow(0px 4px 40px rgba(255, 255, 255, 0)); */
+  }
+
+  to {
+    transform: rotate(360deg);
+    /* filter: drop-shadow(0px 4px 40px rgba(255, 255, 255, 0.9)); */
+  }
+}
+
+.mintpage__modal .modal__content p {
+  padding-bottom: 2rem;
+}
+
+.mintpage__modal .modal__content a {
+  color: var(--accent-color);
+  cursor: pointer;
 }
