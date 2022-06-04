@@ -37,6 +37,22 @@ const MintPage = () => {
     return () => errRef.current();
   }, []);
 
+  const initializeContractData = async (smartContract) => {
+    if (!smartContract) return;
+    try {
+      const data = {
+        maxMintPerTx: (await smartContract.maxMintAmountPerTx()).toString(),
+        pubCost: ethers.utils.formatEther(await smartContract.pubCost()),
+        maxSupply: (await smartContract.maxSupply()).toString(),
+        currentSupply: (await smartContract.totalSupply()).toString(),
+      };
+      setContractData(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (metamask.provider) {
       let smartContract;
@@ -55,21 +71,7 @@ const MintPage = () => {
           metamask.provider.getSigner()
         );
       }
-
-      const initializeContractData = async () => {
-        try {
-          const data = {
-            maxMintPerTx: (await smartContract.maxMintAmountPerTx()).toString(),
-            pubCost: ethers.utils.formatEther(await smartContract.pubCost()),
-            maxSupply: (await smartContract.maxSupply()).toString(),
-            currentSupply: (await smartContract.totalSupply()).toString(),
-          };
-          setContractData(data);
-        } catch (e) {
-          console.error(e);
-        }
-      };
-      initializeContractData();
+      initializeContractData(smartContract);
       setSmartContract(smartContract);
 
       // Set Smart Contract Listener
@@ -84,11 +86,15 @@ const MintPage = () => {
       });
 
       return () => {
-        metamask.removeAllListeners("block");
+        metamask.provider.removeAllListeners("block");
         smartContract.removeAllListeners("Transfer");
       };
     }
   }, [metamask.account]);
+
+  useEffect(() => {
+    initializeContractData(smartContract);
+  }, [isMintSuccess]);
 
   const mint = async () => {
     if (
