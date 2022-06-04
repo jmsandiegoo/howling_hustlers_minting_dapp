@@ -41,12 +41,14 @@ const MintPage = () => {
     if (metamask.provider) {
       let smartContract;
       if (!metamask.account) {
+        // read only
         smartContract = new ethers.Contract(
           CONFIG.CONTRACTS.NFT_CONTRACT.CONTRACT_ADDRESS,
           contractAbi.abi,
           metamask.provider
         );
       } else {
+        // read mutate
         smartContract = new ethers.Contract(
           CONFIG.CONTRACTS.NFT_CONTRACT.CONTRACT_ADDRESS,
           contractAbi.abi,
@@ -72,8 +74,10 @@ const MintPage = () => {
 
       // Set Smart Contract Listener
       smartContract.on("Transfer", async (to, from, tokenId) => {
-        console.log(to, from, tokenId);
         const response = await smartContract.tokenURI(tokenId);
+        console.log(response);
+        setIsMintSuccess(true);
+        setIsMinting(false);
       });
 
       return () => {
@@ -99,7 +103,6 @@ const MintPage = () => {
           }
         );
         console.log(response);
-        setIsMintSuccess(true);
       } catch (e) {
         console.error(e);
         dispatch(
@@ -109,7 +112,6 @@ const MintPage = () => {
               "Something went wrong while minting! Please try again.",
           })
         );
-      } finally {
         setIsMinting(false);
       }
     }
