@@ -73,14 +73,18 @@ const MintPage = () => {
       setSmartContract(smartContract);
 
       // Set Smart Contract Listener
-      smartContract.on("Transfer", async (to, from, tokenId) => {
-        const response = await smartContract.tokenURI(tokenId);
-        console.log(response);
-        setIsMintSuccess(true);
-        setIsMinting(false);
+      metamask.provider.on("block", () => {
+        smartContract.on("Transfer", async (from, to, tokenId) => {
+          const response = await smartContract.tokenURI(tokenId);
+          if (to === metamask.account) {
+            setIsMintSuccess(true);
+            setIsMinting(false);
+          }
+        });
       });
 
       return () => {
+        metamask.removeAllListeners("block");
         smartContract.removeAllListeners("Transfer");
       };
     }
